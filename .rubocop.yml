@@ -1,0 +1,36 @@
+AllCops:
+  Exclude:
+    - bin/**/*
+    - db/**/*
+    - tmp/**/*
+    - vendor/**/*
+    - Guardfile
+  RunRailsCops: true
+
+Documentation:
+  Enabled: false
+
+Encoding:
+  Enabled: false
+
+FileName:
+  Exclude:
+    - !ruby/regexp /(\d+)-(\w+)\.rb$/
+    - !ruby/regexp /development\.rb$/
+
+LineLength:
+  Enabled: true
+  Max: 140
+
+MethodLength:
+  Enabled: true
+  Max: 30
+
+NumericLiterals:
+  Enabled: false
+
+Style/AlignHash:
+  EnforcedColonStyle: table
+
+Rails/Output:
+  Enabled: false
