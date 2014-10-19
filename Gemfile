@@ -8,16 +8,22 @@ gem 'pg', '~> 0.17'
 
 gem 'unicorn'
 
+gem 'active_model_serializers'
+gem 'grape'
+gem 'grape-active_model_serializers'
+#gem 'grape-swagger-rails'
+gem 'rack-cors', require: 'rack/cors'
+
 group :development do
+  gem 'annotate'
   gem 'capistrano'
-
-  gem 'spring'
-
-  gem 'pry-rails'
-  # gem 'pry-debugger'
-  gem 'pry-remote'
+  gem 'pry-byebug'
   gem 'pry-nav'
+  gem 'pry-rails'
+  gem 'pry-remote'
   gem 'pry-stack_explorer'
+  gem 'spring'
+  gem 'thin'
 end
 
 group :development, :test do
@@ -26,17 +32,9 @@ group :development, :test do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.1'
   gem 'database_cleaner', '~> 1.3'
   gem 'fabrication', '~> 2.11'
+  gem 'rspec-rails', '~> 3.1'
   gem 'spring-commands-rspec'
 end
 
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# To use Jbuilder templates for JSON
-# gem 'jbuilder'
-
-# To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'

@@ -15,8 +15,9 @@ ActiveRecord::Schema.define(version: 20141016055947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "uuid-ossp"
 
-  create_table "users", force: true do |t|
+  create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "name"
     t.string   "roles",      array: true
     t.datetime "created_at"
