@@ -14,12 +14,16 @@ module V1
     protected
 
     def schedule_list
-      @schedule_list ||= ScheduleList.new(schedule_start)
+      @schedule_list ||= ScheduleList.new(schedule_start, user)
     end
 
     def schedule_start
       return Date.today unless params[:year] && params[:month]
       Date.new(params[:year].to_i, params[:month].to_i)
+    end
+
+    def user
+      @user ||= User.find(params[:user_id]) if params[:user_id]
     end
   end
 end

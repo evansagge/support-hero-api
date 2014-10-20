@@ -1,5 +1,7 @@
 class ScheduleSerializer < ActiveModel::Serializer
-  attributes :date, :position
+  attributes :id, :date, :position
 
   has_one :user
+
+  alias_method :id, :date
 end

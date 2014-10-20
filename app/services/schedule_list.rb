@@ -1,42 +1,37 @@
 class ScheduleList
   SCHEDULE_START_DATE = Date.parse('Oct 1, 2014')
 
-  attr_reader :start_date, :end_date, :initial_position
+  attr_reader :start_date, :end_date, :initial_position, :user
 
-  def initialize(start_date)
+  def initialize(start_date, user)
     @start_date = start_date
-    @end_date = start_date.end_of_month
-
-    Holidays.between(SCHEDULE_START_DATE, start_date, :us, :us_ca).map do |holiday|
-      BusinessTime::Config.holidays << holiday[:date]
-    end
-
-    @initial_position = SCHEDULE_START_DATE.business_days_until(start_date) % SCHEDULE_HERO_ORDER.count
+    @user = user
+    @initial_position = Schedule.get_position(start_date)
   end
 
   def schedules
-    @schedules ||= generate_schedules.compact
+    @schedules ||= generate_schedules
   end
 
   protected
 
   def generate_schedules
-    schedule_position = initial_position
+    end_date = start_date.end_of_month
+
+    position = initial_position
 
     (start_date..end_date).each_with_object([]) do |date, schedules|
       next if date.saturday? || date.sunday? || date.holiday?(:us, :us_ca)
 
-      schedules << generate_schedule(schedule_position, date)
+      user_name = SCHEDULE_HERO_ORDER[position]
+      hero = users.find { |u| u.name == user_name }
 
-      schedule_position += 1
-      schedule_position = 0 if schedule_position >= SCHEDULE_HERO_ORDER.count
+      schedule = Schedule.new(date: date, user: hero, position: position)
+      schedules << schedule if user.nil? || user == hero
+
+      position += 1
+      position = 0 if position >= SCHEDULE_HERO_ORDER.count
     end
-  end
-
-  def generate_schedule(position, date)
-    user_name = SCHEDULE_HERO_ORDER[position]
-    user = users.find { |u| u.name == user_name }
-    Schedule.new(date: date, user: user, position: position)
   end
 
   def users
