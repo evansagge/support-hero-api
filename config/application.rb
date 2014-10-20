@@ -15,12 +15,6 @@ Bundler.require(*Rails.groups)
 
 module SupportHero
   class Application < Rails::Application
-    config.paths.add File.join('app', 'api'), glob: File.join('**', '*.rb')
-    config.autoload_paths += Dir[Rails.root.join('app', 'api', '*')]
-    config.autoload_paths += %w(
-      app/apis/concerns
-    )
-
     config.middleware.use Rack::Cors do
       allow do
         origins '*'

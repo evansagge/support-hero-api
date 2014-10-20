@@ -1,18 +1,17 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 4.1'
-
 gem 'rails-api', '~> 0.3'
-
 gem 'pg', '~> 0.17'
-
 gem 'unicorn'
 
-gem 'active_model_serializers'
-gem 'grape'
-gem 'grape-active_model_serializers'
-#gem 'grape-swagger-rails'
+gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-9-stable'
 gem 'rack-cors', require: 'rack/cors'
+gem 'responders'
+
+gem 'holidays', github: 'evansagge/holidays'
+gem 'chronic'
+gem 'business_time'
 
 group :development do
   gem 'annotate'

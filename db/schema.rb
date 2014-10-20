@@ -11,11 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141016055947) do
+ActiveRecord::Schema.define(version: 20141019225703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
+
+  create_table "support_schedules", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid     "user_id",      null: false
+    t.date     "scheduled_at", null: false
+    t.integer  "position"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "support_schedules", ["scheduled_at", "user_id"], name: "index_support_schedules_on_scheduled_at_and_user_id", using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
     t.string   "name"

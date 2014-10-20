@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
-  mount SupportHero::API::Base, at: '/'
+  namespace :v1 do
+    resources :support_schedules, except: %i(new edit)
+    resources :users, except: %i(new edit) do
+      resources :support_schedules, controller: :user_support_schedules, only: :index
+    end
+  end
 end
 
