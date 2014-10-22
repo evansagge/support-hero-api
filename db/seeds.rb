@@ -1,10 +1,14 @@
+DEFAULT_PASSWORD = 'Pass1234'
+
 # Create default manager
-manager = User.find_or_create_by!(name: 'Manager')
+manager = User.where(name: 'Manager').first_or_initialize
+manager.update!(password: DEFAULT_PASSWORD, password_confirmation: DEFAULT_PASSWORD) if manager.new_record?
 manager.update!(roles: %w(manager))
 
 # Seed users
 %w(Sherry Boris Vicente Matte Jack Kevin Zoe Jay Eadon Franky Luis James).each do |name|
-  user = User.find_or_create_by!(name: name)
+  user = User.where(name: name).first_or_initialize
+  user.update!(password: DEFAULT_PASSWORD, password_confirmation: DEFAULT_PASSWORD) if user.new_record?
   user.update!(roles: %w(support))
 end
 

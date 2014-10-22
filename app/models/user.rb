@@ -4,13 +4,14 @@
 #
 # ### Columns
 #
-# Name              | Type               | Attributes
-# ----------------- | ------------------ | ---------------------------
-# **`created_at`**  | `datetime`         |
-# **`id`**          | `uuid`             | `not null, primary key`
-# **`name`**        | `string(255)`      | `not null`
-# **`roles`**       | `string(255)`      | `is an Array`
-# **`updated_at`**  | `datetime`         |
+# Name                   | Type               | Attributes
+# ---------------------- | ------------------ | ---------------------------
+# **`created_at`**       | `datetime`         |
+# **`id`**               | `uuid`             | `not null, primary key`
+# **`name`**             | `string(255)`      | `not null`
+# **`password_digest`**  | `string(255)`      |
+# **`roles`**            | `string(255)`      | `is an Array`
+# **`updated_at`**       | `datetime`         |
 #
 # ### Indexes
 #
@@ -20,4 +21,11 @@
 
 class User < ActiveRecord::Base
   has_many :support_schedules
+
+  has_secure_password
+
+  def self.authenticate(name, password)
+    user = find_by(name: name)
+    user.present? && user.authenticate(password)
+  end
 end

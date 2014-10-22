@@ -1,3 +1,22 @@
+# ## Schema Information
+#
+# Table name: `support_orders`
+#
+# ### Columns
+#
+# Name              | Type               | Attributes
+# ----------------- | ------------------ | ---------------------------
+# **`created_at`**  | `datetime`         |
+# **`id`**          | `uuid`             | `not null, primary key`
+# **`start_at`**    | `date`             | `not null`
+# **`updated_at`**  | `datetime`         |
+#
+# ### Indexes
+#
+# * `index_support_orders_on_start_at`:
+#     * **`start_at`**
+#
+
 Fabricator :support_order do
   start_at { Date.new(2014, 10, 1) }
   after_create do |support_order|

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141020053527) do
+ActiveRecord::Schema.define(version: 20141022231336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,10 +34,11 @@ ActiveRecord::Schema.define(version: 20141020053527) do
   add_index "support_orders", ["start_at"], name: "index_support_orders_on_start_at", using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
-    t.string   "name",       null: false
-    t.string   "roles",                   array: true
+    t.string   "name",            null: false
+    t.string   "roles",                        array: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "password_digest"
   end
 
   add_index "users", ["name"], name: "index_users_on_name", using: :btree
