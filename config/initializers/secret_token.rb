@@ -16,4 +16,5 @@
 # Using secret_token for rails3 compatibility. Change to secret_key_base
 # to avoid deprecation warning.
 # Can be safely removed in a rails3 api-only application.
-SupportHero::Application.config.secret_token = '252987a00a0c48e9bc7b6ce72cd3442c31099136647938ef42735b1052a72265de8c51ba8aa39b1df1968ac4052124e4d2208235a2696a1e59ec69f5740f9c57' # rubocop:disable Metrics/LineLength
+SupportHero::Application.config.secret_token = '252987a00a0c48e9bc7b6ce72cd3442c31099136647938ef42735b1052a72265de8c51ba8aa39b'\
+'1df1968ac4052124e4d2208235a2696a1e59ec69f5740f9c57'

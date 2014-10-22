@@ -30,6 +30,9 @@ end
 group :development, :test do
   gem 'ffaker'
   gem 'rubocop'
+  gem 'guard'
+  gem 'guard-rubocop'
+  gem 'guard-rspec'
 end
 
 group :test do
@@ -37,4 +40,5 @@ group :test do
   gem 'fabrication', '~> 2.11'
   gem 'rspec-rails', '~> 3.1'
   gem 'spring-commands-rspec'
+  gem 'json_spec'
 end
