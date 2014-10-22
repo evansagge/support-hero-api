@@ -41,4 +41,5 @@ group :test do
   gem 'rspec-rails', '~> 3.1'
   gem 'spring-commands-rspec'
   gem 'json_spec'
+  gem 'simplecov', require: false
 end
