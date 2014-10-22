@@ -1,6 +1,6 @@
 # ## Schema Information
 #
-# Table name: `users`
+# Table name: `support_orders`
 #
 # ### Columns
 #
@@ -8,16 +8,17 @@
 # ----------------- | ------------------ | ---------------------------
 # **`created_at`**  | `datetime`         |
 # **`id`**          | `uuid`             | `not null, primary key`
-# **`name`**        | `string(255)`      | `not null`
-# **`roles`**       | `string(255)`      | `is an Array`
+# **`start_at`**    | `date`             | `not null`
 # **`updated_at`**  | `datetime`         |
 #
 # ### Indexes
 #
-# * `index_users_on_name`:
-#     * **`name`**
+# * `index_support_orders_on_start_at`:
+#     * **`start_at`**
 #
 
-class User < ActiveRecord::Base
-  has_many :support_schedules
+require 'rails_helper'
+
+RSpec.describe SupportOrder, type: :model do
+  pending "add some examples to (or delete) #{__FILE__}"
 end

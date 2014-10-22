@@ -5,6 +5,7 @@ gem 'rails-api', '~> 0.3'
 gem 'pg', '~> 0.17'
 gem 'unicorn'
 
+gem 'acts_as_list'
 gem 'active_model_serializers', github: 'rails-api/active_model_serializers', branch: '0-9-stable'
 gem 'rack-cors', require: 'rack/cors'
 gem 'responders'
@@ -16,6 +17,7 @@ gem 'business_time'
 group :development do
   gem 'annotate'
   gem 'capistrano'
+  gem 'dotenv-rails'
   gem 'pry-byebug'
   gem 'pry-nav'
   gem 'pry-rails'
@@ -36,4 +38,3 @@ group :test do
   gem 'rspec-rails', '~> 3.1'
   gem 'spring-commands-rspec'
 end
-

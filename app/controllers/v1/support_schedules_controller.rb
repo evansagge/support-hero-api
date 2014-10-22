@@ -1,23 +1,22 @@
 module V1
   class SupportSchedulesController < ApplicationController
     def index
-      schedules = schedule_list.schedules
-      render json: schedules
+      support_schedules = support_schedule_list.all(user)
+      render json: support_schedules
     end
 
     def show
-      date = Chronic.parse(params[:id]).to_date
-      schedule = Schedule.find(date)
-      render json: schedule
+      support_schedule = support_schedule_list.find_by_date(date)
+      render json: support_schedule
     end
 
     protected
 
-    def schedule_list
-      @schedule_list ||= ScheduleList.new(schedule_start, user)
+    def support_schedule_list
+      @support_schedule_list ||= SupportScheduleList.new(support_month)
     end
 
-    def schedule_start
+    def support_month
       return Date.today unless params[:year] && params[:month]
       Date.new(params[:year].to_i, params[:month].to_i)
     end
@@ -25,6 +24,9 @@ module V1
     def user
       @user ||= User.find(params[:user_id]) if params[:user_id]
     end
+
+    def date
+      @date ||= Chronic.parse(params[:id]).to_date
+    end
   end
 end
-

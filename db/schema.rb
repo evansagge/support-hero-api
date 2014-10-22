@@ -11,27 +11,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019225703) do
+ActiveRecord::Schema.define(version: 20141020053527) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "uuid-ossp"
 
-  create_table "support_schedules", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
-    t.uuid     "user_id",      null: false
-    t.date     "scheduled_at", null: false
-    t.integer  "position"
+  create_table "support_order_users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.uuid    "support_order_id", null: false
+    t.uuid    "user_id",          null: false
+    t.integer "position",         null: false
+  end
+
+  add_index "support_order_users", ["support_order_id", "position"], name: "index_support_order_users_on_support_order_id_and_position", using: :btree
+
+  create_table "support_orders", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
+    t.date     "start_at",   null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "support_schedules", ["scheduled_at", "user_id"], name: "index_support_schedules_on_scheduled_at_and_user_id", using: :btree
+  add_index "support_orders", ["start_at"], name: "index_support_orders_on_start_at", using: :btree
 
   create_table "users", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
-    t.string   "name"
-    t.string   "roles",      array: true
+    t.string   "name",       null: false
+    t.string   "roles",                   array: true
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "users", ["name"], name: "index_users_on_name", using: :btree
 
 end

@@ -41,6 +41,8 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.1)
       tzinfo (~> 1.1)
+    acts_as_list (0.2.0)
+      activerecord (>= 3.0)
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
@@ -69,6 +71,11 @@ GEM
     debug_inspector (0.0.2)
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
+    dotenv-rails (0.11.1)
+      dotenv (= 0.11.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     fabrication (2.11.3)
@@ -194,11 +201,13 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers!
+  acts_as_list
   annotate
   business_time
   capistrano
   chronic
   database_cleaner (~> 1.3)
+  dotenv-rails
   fabrication (~> 2.11)
   ffaker
   holidays!

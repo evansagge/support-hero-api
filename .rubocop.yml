@@ -34,3 +34,9 @@ Style/AlignHash:
 
 Rails/Output:
   Enabled: false
+
+Style/TrailingBlankLines:
+  EnforcedStyle: final_newline
+  SupportedStyles:
+    - final_newline
+    - final_blank_line
