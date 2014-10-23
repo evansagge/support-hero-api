@@ -7,10 +7,6 @@ class UndoableSchedulePolicy < ApplicationPolicy
     support_schedule.present? && support_schedule.user == user
   end
 
-  def update?
-    manager? || owner?
-  end
-
   def destroy?
     manager? || owner?
   end

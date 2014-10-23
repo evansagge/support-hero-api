@@ -1,12 +1,17 @@
 module V1
   class UndoableSchedulesController < ApplicationController
+    after_action :verify_authorized, only: %w(create destroy)
+
     def index
       undoable_schedules = UndoableSchedule.all
       render json: undoable_schedules
     end
 
     def create
-      undoable_schedule = current_user.undoable_schedules.create(undoable_schedule_params)
+      undoable_schedule = current_user.undoable_schedules.build(undoable_schedule_params).tap do |undoable|
+        authorize(undoable)
+        undoable.save
+      end
       render json: undoable_schedule
     end
 
@@ -15,6 +20,7 @@ module V1
     end
 
     def destroy
+      authorize(undoable_schedule)
       undoable_schedule.destroy
       render json: undoable_schedule
     end
