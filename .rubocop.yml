@@ -5,6 +5,8 @@ AllCops:
     - tmp/**/*
     - vendor/**/*
     - Guardfile
+  Include:
+    - lib/thor/**/*
   RunRailsCops: true
 
 Documentation:
