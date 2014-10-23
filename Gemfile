@@ -19,7 +19,6 @@ gem 'business_time'
 
 gem 'thor'
 gem 'thor-rails'
-gem 'table_print'
 
 group :development do
   gem 'annotate'
