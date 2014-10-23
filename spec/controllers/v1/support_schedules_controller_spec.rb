@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe V1::SupportSchedulesController do
+  let(:user) { Fabricate(:user) }
+  let(:token) { double(Doorkeeper::AccessToken, acceptable?: true, resource_owner_id: user.id) }
+
+  before do
+    allow(controller).to receive(:doorkeeper_token) { token }
+  end
+
   describe 'GET :index' do
     let(:support_schedules) { Fabricate.build_times(3, :support_schedule) }
     let(:schedule_list) { double(SupportScheduleList, all: support_schedules) }

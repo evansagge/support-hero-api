@@ -4,6 +4,7 @@ gem 'rails', '~> 4.1'
 gem 'rails-api', '~> 0.3'
 gem 'pg', '~> 0.17'
 gem 'bcrypt', '~> 3.1.7'
+gem 'doorkeeper'
 gem 'unicorn'
 
 gem 'acts_as_list'
@@ -43,4 +44,5 @@ group :test do
   gem 'spring-commands-rspec'
   gem 'json_spec'
   gem 'simplecov', require: false
+  gem 'oauth2'
 end

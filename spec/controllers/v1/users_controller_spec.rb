@@ -1,6 +1,13 @@
 require 'rails_helper'
 
 describe V1::UsersController do
+  let(:user) { Fabricate(:user) }
+  let(:token) { double(Doorkeeper::AccessToken, acceptable?: true, resource_owner_id: user.id) }
+
+  before do
+    allow(controller).to receive(:doorkeeper_token) { token }
+  end
+
   describe 'GET :index' do
     let!(:users) { Fabricate.times(3, :user) }
 
@@ -11,8 +18,8 @@ describe V1::UsersController do
     end
 
     it 'renders a JSON representation of each user' do
-      expect(subject.body).to have_json_size(users.count).at_path('users')
-      users.each do |user|
+      expect(subject.body).to have_json_size(User.count).at_path('users')
+      User.all.each do |user|
         expected = UserSerializer.new(user, root: false)
         expect(subject.body).to include_json(expected.to_json).at_path('users')
       end

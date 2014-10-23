@@ -75,6 +75,8 @@ GEM
     debugger-linecache (1.2.0)
     diff-lcs (1.2.5)
     docile (1.1.5)
+    doorkeeper (1.4.0)
+      railties (>= 3.1)
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
@@ -83,6 +85,8 @@ GEM
     erubis (2.7.0)
     eventmachine (1.0.3)
     fabrication (2.11.3)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     ffaker (1.25.0)
     ffi (1.9.5)
     formatador (0.2.5)
@@ -104,6 +108,7 @@ GEM
     json_spec (1.1.2)
       multi_json (~> 1.0)
       rspec (>= 2.0, < 4.0)
+    jwt (1.0.0)
     kgio (2.9.2)
     listen (2.7.11)
       celluloid (>= 0.15.2)
@@ -116,9 +121,17 @@ GEM
     mime-types (2.4.2)
     minitest (5.4.2)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
+    multipart-post (2.0.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.1)
+    oauth2 (1.0.0)
+      faraday (>= 0.8, < 0.10)
+      jwt (~> 1.0)
+      multi_json (~> 1.3)
+      multi_xml (~> 0.5)
+      rack (~> 1.2)
     parser (2.2.0.pre.4)
       ast (>= 1.1, < 3.0)
       slop (~> 3.4, >= 3.4.5)
@@ -247,6 +260,7 @@ DEPENDENCIES
   capistrano
   chronic
   database_cleaner (~> 1.3)
+  doorkeeper
   dotenv-rails
   fabrication (~> 2.11)
   ffaker
@@ -255,6 +269,7 @@ DEPENDENCIES
   guard-rubocop
   holidays!
   json_spec
+  oauth2
   pg (~> 0.17)
   pry-byebug
   pry-nav
