@@ -36,8 +36,8 @@ describe V1::UsersController do
     end
 
     it 'renders a JSON representation of a user' do
-      expected = UserSerializer.new(user, root: false)
-      expect(subject.body).to be_json_eql(expected.to_json).at_path('user')
+      expected = UserSerializer.new(user)
+      expect(subject.body).to be_json_eql(expected.to_json)
     end
   end
 end

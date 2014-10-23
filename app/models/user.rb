@@ -20,7 +20,7 @@
 #
 
 class User < ActiveRecord::Base
-  has_many :support_schedules
+  has_many :undoable_schedules
 
   has_secure_password
 
