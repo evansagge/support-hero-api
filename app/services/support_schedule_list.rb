@@ -23,10 +23,6 @@ class SupportScheduleList
     SupportSchedule.new(date: date, user: support_order_user.user, position: position)
   end
 
-  def support_order
-    @support_order ||= SupportOrder.where('start_at <= ?', start_date).order(start_at: :desc).first
-  end
-
   protected
 
   def support_schedules_for(user)
@@ -45,10 +41,8 @@ class SupportScheduleList
     support_order.start_at.business_days_until(date) % support_order_count + 1
   end
 
-  def detect_holidays(end_date)
-    Holidays.between(support_order.start_at, end_date, :us, :us_ca).map do |holiday|
-      BusinessTime::Config.holidays << holiday[:date]
-    end
+  def support_order
+    @support_order ||= SupportOrder.for_date(start_date)
   end
 
   def support_order_users
@@ -57,5 +51,11 @@ class SupportScheduleList
 
   def support_order_count
     @support_order_count ||= support_order_users.count
+  end
+
+  def detect_holidays(end_date)
+    Holidays.between(support_order.start_at, end_date, :us, :us_ca).map do |holiday|
+      BusinessTime::Config.holidays << holiday[:date]
+    end
   end
 end

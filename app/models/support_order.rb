@@ -20,4 +20,8 @@
 class SupportOrder < ActiveRecord::Base
   has_many :support_order_users, -> { order(position: :asc) }
   has_many :users, through: :support_order_users
+
+  def self.for_date(date)
+    where('start_at <= ?', date).order(start_at: :desc).first
+  end
 end

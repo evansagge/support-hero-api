@@ -88,12 +88,4 @@ describe SupportScheduleList do
       end
     end
   end
-
-  describe '#support_order' do
-    let!(:older_support_order) { Fabricate(:support_order, start_at: 2.days.ago(support_order_start)) }
-
-    it 'returns the closest SupportOrder record before the given start date' do
-      expect(instance.support_order).to eq(support_order)
-    end
-  end
 end
