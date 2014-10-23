@@ -24,7 +24,7 @@ describe V1::UndoableSchedulesController do
 
   describe 'POST :create' do
     let(:date) { Date.new(2014, 11, 5) }
-    let(:undoable_schedule_attributes) { { date: date } }
+    let(:undoable_schedule_attributes) { { reason: 'Some reason', date: date } }
 
     subject { post :create, undoable_schedule: undoable_schedule_attributes }
 

@@ -27,4 +27,8 @@ class UndoableSchedule < ActiveRecord::Base
   scope :between_dates, ->(start_date, end_date) { where(date: start_date..end_date) }
 
   belongs_to :user
+
+  validates :date, presence: true, uniqueness: true
+  validates :user, presence: true
+  validates :reason, presence: true
 end
