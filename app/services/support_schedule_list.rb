@@ -57,6 +57,8 @@ class SupportScheduleList
   end
 
   def detect_days_to_skip
+    return if support_order.nil?
+
     date_start = support_order.start_at
     date_end = list_start_at.end_of_month
 

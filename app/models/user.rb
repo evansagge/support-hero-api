@@ -20,6 +20,8 @@
 #
 
 class User < ActiveRecord::Base
+  ROLES = %w(manager support)
+
   has_many :undoable_schedules
 
   has_secure_password
@@ -27,5 +29,11 @@ class User < ActiveRecord::Base
   def self.authenticate(name, password)
     user = find_by(name: name)
     user.present? && user.authenticate(password)
+  end
+
+  ROLES.each do |role|
+    define_method "#{role}?" do
+      Array(roles).include?(role)
+    end
   end
 end

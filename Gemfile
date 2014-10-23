@@ -5,6 +5,7 @@ gem 'rails-api', '~> 0.3'
 gem 'pg', '~> 0.17'
 gem 'bcrypt', '~> 3.1.7'
 gem 'doorkeeper'
+gem 'pundit'
 gem 'unicorn'
 
 gem 'acts_as_list'
