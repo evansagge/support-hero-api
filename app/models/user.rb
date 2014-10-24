@@ -23,6 +23,8 @@ class User < ActiveRecord::Base
   ROLES = %w(manager support)
 
   has_many :undoable_schedules
+  has_many :swapped_schedules, foreign_key: :original_user_id
+  has_many :target_swapped_schedules, foreign_key: :target_user_id
 
   has_secure_password
 

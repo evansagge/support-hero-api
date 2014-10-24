@@ -26,10 +26,10 @@ group :development do
   gem 'dotenv-rails'
   gem 'hirb'
   gem 'pry-byebug'
-  gem 'pry-nav'
+  # gem 'pry-nav'
   gem 'pry-rails'
   gem 'pry-remote'
-  # gem 'pry-stack_explorer'
+  gem 'pry-stack_explorer'
   gem 'spring'
   gem 'thin'
 end

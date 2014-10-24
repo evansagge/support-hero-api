@@ -73,11 +73,11 @@ ActiveRecord::Schema.define(version: 20141023221831) do
   add_index "support_orders", ["start_at"], name: "index_support_orders_on_start_at", using: :btree
 
   create_table "swapped_schedules", id: :uuid, default: "uuid_generate_v4()", force: true do |t|
-    t.date     "original_date"
-    t.date     "target_date"
-    t.uuid     "original_user_id"
-    t.uuid     "target_user_id"
-    t.boolean  "approved"
+    t.date     "original_date",                        null: false
+    t.date     "target_date",                          null: false
+    t.uuid     "original_user_id",                     null: false
+    t.uuid     "target_user_id",                       null: false
+    t.string   "status",           default: "pending"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

@@ -4,9 +4,12 @@ class SupportScheduleList
   delegate :support_order_users, :users, to: :support_order
 
   def initialize(list_start_at)
-    @list_start_at = list_start_at
+    @list_start_at = list_start_at.to_date
 
-    detect_days_to_skip
+    SupportHolidays.detect(
+      support_order.start_at,
+      list_start_at.end_of_month
+    ) if support_order.present?
   end
 
   def all(user = nil)
@@ -22,6 +25,7 @@ class SupportScheduleList
     support_order_user = support_order_users.find { |item| item.position == position }
     SupportSchedule.new(date: date, user: support_order_user.user, position: position)
   end
+  alias_method :at, :find_by_date
 
   protected
 
@@ -53,27 +57,6 @@ class SupportScheduleList
   end
 
   def skip_date?(date)
-    date.saturday? || date.sunday? || holidays.include?(date)
-  end
-
-  def detect_days_to_skip
-    return if support_order.nil?
-
-    date_start = support_order.start_at
-    date_end = list_start_at.end_of_month
-
-    undoable_schedules = UndoableSchedule.approved.between_dates(date_start, date_end).pluck(:date)
-    undoable_schedules.each(&method(:apply_holiday))
-
-    holidays = Holidays.between(date_start, date_end, :us, :us_ca)
-    holidays.each { |holiday| apply_holiday(holiday[:date]) }
-  end
-
-  def apply_holiday(date)
-    holidays << date unless holidays.include?(date)
-  end
-
-  def holidays
-    BusinessTime::Config.holidays
+    date.saturday? || date.sunday? || SupportHolidays.include?(date)
   end
 end

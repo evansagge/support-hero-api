@@ -16,17 +16,9 @@
 # **`updated_at`**        | `datetime`         |
 #
 
-class SwappedSchedule < ActiveRecord::Base
-  STATUSES = %w(pending accepted rejected)
-
-  scope :accepted, -> { where(status: 'accepted') }
-
-  belongs_to :original_user, class_name: 'User', inverse_of: :swapped_schedules
-  belongs_to :target_user, class_name: 'User', inverse_of: :target_swapped_schedules
-
-  validates :original_date, presence: true
-  validates :target_date, presence: true
-  validates :original_user, presence: true
-  validates :target_user, presence: true
-  validates :status, presence: true, inclusion: { in: STATUSES }
+Fabricator :swapped_schedule do
+  original_date 1.day.from_now
+  target_date 2.days.from_now
+  original_user { Fabricate(:user) }
+  target_user { Fabricate(:user) }
 end
