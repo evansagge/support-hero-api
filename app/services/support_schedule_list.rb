@@ -1,62 +1,44 @@
 class SupportScheduleList
-  attr_reader :list_start_at
+  attr_reader :support_order
 
-  delegate :support_order_users, :users, to: :support_order
+  delegate :user_list, :user_count, to: :support_order
 
-  def initialize(list_start_at)
-    @list_start_at = list_start_at.to_date
-
-    SupportHolidays.detect(
-      support_order.start_at,
-      list_start_at.end_of_month
-    ) if support_order.present?
+  def initialize(support_order)
+    @support_order = support_order
   end
 
-  def all(user = nil)
-    return [] if support_order.nil?
+  def all(start_date, end_date)
+    detect_holidays(end_date)
 
-    support_schedules_for(user)
+    position = support_position(start_date)
+
+    (start_date..end_date).each_with_object([]) do |date, support_schedules|
+      next if skip_date?(date)
+      support_schedules << SupportSchedule.new(date: date, user: user_list[position], position: position)
+      position = (position % user_count) + 1
+    end
   end
 
-  def find_by_date(date)
-    return nil if support_order.nil?
+  def find(date)
+    detect_holidays(date)
 
+    return if skip_date?(date)
     position = support_position(date)
-    support_order_user = support_order_users.find { |item| item.position == position }
-    SupportSchedule.new(date: date, user: support_order_user.user, position: position)
+    SupportSchedule.new(date: date, user: user_list[position], position: position)
   end
-  alias_method :at, :find_by_date
+  alias_method :at, :find
 
   protected
 
-  def support_schedules_for(user)
-    end_date = list_start_at.end_of_month
-
-    (list_start_at..end_date).map do |date|
-      next if skip_date?(date)
-
-      support_schedule = find_by_date(date)
-      support_schedule if user.nil? || user == support_schedule.user
-    end.compact
-  end
-
   def support_position(date)
-    support_order.start_at.business_days_until(date) % support_order_count + 1
-  end
-
-  def support_order
-    @support_order ||= SupportOrder.for_date(list_start_at)
-  end
-
-  def support_order_users
-    @support_order_users ||= support_order.support_order_users.includes(:user)
-  end
-
-  def support_order_count
-    @support_order_count ||= support_order_users.count
+    support_order.start_at.business_days_until(date) % user_count + 1
   end
 
   def skip_date?(date)
     date.saturday? || date.sunday? || SupportHolidays.include?(date)
+  end
+
+  def detect_holidays(end_date)
+    SupportHolidays.detect(support_order.start_at, end_date)
   end
 end

@@ -23,4 +23,7 @@ class SupportOrderUser < ActiveRecord::Base
   belongs_to :user
 
   acts_as_list scope: :support_order
+
+  validates :user, presence: true
+  validates :position, presence: true
 end

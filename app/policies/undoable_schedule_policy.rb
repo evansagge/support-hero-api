@@ -16,10 +16,6 @@ class UndoableSchedulePolicy < ApplicationPolicy
   protected
 
   def support_schedule
-    @support_schedule ||= support_schedule_list.at(date) if support_schedule_list
-  end
-
-  def support_schedule_list
-    @support_schedule_list ||= SupportScheduleList.new(date) if date
+    @support_schedule ||= SupportSchedule.find(date)
   end
 end

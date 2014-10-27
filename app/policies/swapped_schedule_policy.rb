@@ -2,7 +2,7 @@ class SwappedSchedulePolicy < ApplicationPolicy
   alias_method :swapped_schedule, :record
 
   def create?
-    swapped_schedule.original_user == user
+    swapped_schedule.valid? && swapped_schedule.original_user == user
   end
 
   def update?

@@ -6,7 +6,7 @@ module V1
     end
 
     def create
-      swapped_schedule = SupportScheduleSwapper.new(original_date, target_date)
+      swapped_schedule = SwappedSchedule.new(create_params)
       authorize(swapped_schedule)
       swapped_schedule.save
 
@@ -35,14 +35,6 @@ module V1
 
     def swapped_schedule
       @swapped_schedule ||= SwappedSchedule.find(params[:id])
-    end
-
-    def original_date
-      Chronic.parse(create_params.fetch(:original_date)).to_date
-    end
-
-    def target_date
-      Chronic.parse(create_params.fetch(:target_date)).to_date
     end
 
     def create_params
