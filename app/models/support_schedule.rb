@@ -2,7 +2,7 @@ class SupportSchedule
   include ActiveModel::Model
   include ActiveModel::Serialization
 
-  attr_accessor :date, :user, :position
+  attr_accessor :date, :user, :position, :swapped_schedule
 
   class << self
     def between(start_date, end_date, user = nil)

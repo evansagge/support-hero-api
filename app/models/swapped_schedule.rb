@@ -17,7 +17,7 @@
 #
 
 class SwappedSchedule < ActiveRecord::Base
-  STATUSES = %w(pending accepted rejected)
+  STATUSES = %w(pending accepted rejected invalidated)
 
   scope :accepted, -> { where(status: 'accepted') }
 
@@ -33,20 +33,29 @@ class SwappedSchedule < ActiveRecord::Base
   before_validation :calculate_original_user, on: :create
   before_validation :calculate_target_user, on: :create
 
+  def self.between(start_date, end_date)
+    where(
+      arel_table[:original_date].in(start_date...end_date)
+      .or(arel_table[:target_date].in(start_date...end_date))
+    ).order(created_at: :asc)
+  end
+
+  def swapped_for(user)
+    user == original_user ? target_user : original_user
+  end
+
   protected
 
   def calculate_original_user
     self.original_user ||= begin
-      original_support_order = SupportOrder.for_date(original_date)
-      original_support_schedule = original_support_order.support_schedules.find(original_date) if original_support_order
+      original_support_schedule = SupportSchedule.find(original_date)
       original_support_schedule.try(:user)
     end
   end
 
   def calculate_target_user
     self.target_user ||= begin
-      target_support_order = SupportOrder.for_date(target_date)
-      target_support_schedule = target_support_order.support_schedules.find(target_date) if target_support_order
+      target_support_schedule = SupportSchedule.find(target_date)
       target_support_schedule.try(:user)
     end
   end

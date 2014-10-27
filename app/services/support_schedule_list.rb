@@ -14,7 +14,17 @@ class SupportScheduleList
 
     (start_date..end_date).each_with_object([]) do |date, support_schedules|
       next if skip_date?(date)
-      support_schedules << SupportSchedule.new(date: date, user: user_list[position], position: position)
+
+      user = user_list[position]
+      swapped_schedule = swapped_schedules[date]
+      support_schedule = SupportSchedule.new(
+        date:             date,
+        user:             swapped_schedule ? swapped_schedule.swapped_for(user) : user,
+        position:         position,
+        swapped_schedule: swapped_schedule
+      )
+      support_schedules << support_schedule
+
       position = (position % user_count) + 1
     end
   end
@@ -23,8 +33,17 @@ class SupportScheduleList
     detect_holidays(date)
 
     return if skip_date?(date)
+
     position = support_position(date)
-    SupportSchedule.new(date: date, user: user_list[position], position: position)
+    swapped_schedule = swapped_schedules[date]
+    user = user_list[position]
+
+    SupportSchedule.new(
+      date:             date,
+      user:             swapped_schedule ? swapped_schedule.swapped_for(user) : user,
+      position:         position,
+      swapped_schedule: swapped_schedule
+    )
   end
   alias_method :at, :find
 
@@ -40,5 +59,13 @@ class SupportScheduleList
 
   def detect_holidays(end_date)
     SupportHolidays.detect(support_order.start_at, end_date)
+  end
+
+  def swapped_schedules
+    @swapped_schedules ||= SwappedSchedule.accepted.includes(:original_user, :target_user)
+      .each_with_object({}) do |swapped_schedule, map|
+      map[swapped_schedule.original_date] = swapped_schedule
+      map[swapped_schedule.target_date] = swapped_schedule
+    end
   end
 end

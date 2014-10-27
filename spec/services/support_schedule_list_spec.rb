@@ -48,6 +48,33 @@ describe SupportScheduleList do
         expect(subject.map(&:date)).to_not include(Date.new(2014, 11, 19))
       end
     end
+
+    describe 'given swapped schedules' do
+      let(:original_date) { Date.new(2014, 11, 5) }
+      let(:target_date) { Date.new(2014, 11, 12) }
+      let(:original_user) { support_order.support_order_users.find_by(position: 3).user }
+      let(:target_user) { support_order.support_order_users.find_by(position: 7).user }
+      let!(:swapped_schedule) do
+        Fabricate(
+          :swapped_schedule,
+          original_date: original_date,
+          target_date:   target_date,
+          original_user: original_user,
+          target_user:   target_user,
+          status:        'accepted'
+        )
+      end
+
+      it 'returns SupportSchedule with the user swapped for those dates with swapped schedules' do
+        schedule_at_original_date = subject.find { |schedule| schedule.date == original_date }
+        expect(schedule_at_original_date.swapped_schedule).to eq(swapped_schedule)
+        expect(schedule_at_original_date.user).to eq(target_user)
+
+        schedule_at_target_date = subject.find { |schedule| schedule.date == target_date }
+        expect(schedule_at_target_date.swapped_schedule).to eq(swapped_schedule)
+        expect(schedule_at_target_date.user).to eq(original_user)
+      end
+    end
   end
 
   describe '#find' do
@@ -61,6 +88,31 @@ describe SupportScheduleList do
         expect(subject.position).to eq(expected_position)
         expect(subject.user).to eq(support_order_user.user)
         expect(subject.date).to eq(date)
+      end
+
+      describe 'given swapped schedules' do
+        let(:original_date) { Date.new(2014, 11, 13) }
+        let(:target_date) { Date.new(2014, 11, 14) }
+        let(:original_user) { support_order.support_order_users.find_by(position: 8).user }
+        let(:target_user) { support_order.support_order_users.find_by(position: 9).user }
+        let!(:swapped_schedule) do
+          Fabricate(
+            :swapped_schedule,
+            original_date: original_date,
+            target_date:   target_date,
+            original_user: original_user,
+            target_user:   target_user,
+            status:        'accepted'
+          )
+        end
+
+        it 'returns the SupportSchedule for the given date, swapping the user with the target swapped user' do
+          expected_position = 8 # Nov. 13, 2014 is 8 business days from Nov. 1, 2014
+          expect(subject.position).to eq(expected_position)
+          expect(subject.swapped_schedule).to eq(swapped_schedule)
+          expect(subject.user).to eq(target_user)
+          expect(subject.date).to eq(date)
+        end
       end
 
       describe 'given undoable schedules' do
