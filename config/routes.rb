@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     resources :users, except: %i(new edit create destroy)
     resources :swapped_schedules, only: %i(index create show update destroy)
     resources :undoable_schedules, only: %i(index create show destroy)
+    get '/current_user' => 'current_user#show'
   end
 end
