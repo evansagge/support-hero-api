@@ -12,7 +12,7 @@ describe V1::CurrentUserController do
     subject { get :show }
 
     it 'returns the currently logged in user in its serialized JSON form' do
-      expected = UserSerializer.new(user, root: :current_user)
+      expected = UserSerializer.new(user, root: :user)
       expect(subject.body).to be_json_eql(expected.to_json)
     end
   end

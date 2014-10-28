@@ -4,10 +4,10 @@ Rails.application.routes.draw do
   end
 
   namespace :v1 do
-    resources :support_schedules, except: %i(new edit)
+    get '/users/me' => 'current_user#show'
     resources :users, except: %i(new edit create destroy)
+    resources :support_schedules, except: %i(new edit)
     resources :swapped_schedules, only: %i(index create show update destroy)
     resources :undoable_schedules, only: %i(index create show destroy)
-    get '/current_user' => 'current_user#show'
   end
 end
