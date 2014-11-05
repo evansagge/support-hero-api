@@ -19,8 +19,8 @@ gem 'holidays', github: 'evansagge/holidays'
 gem 'chronic'
 gem 'business_time'
 
-# gem 'thor'
-# gem 'thor-rails'
+gem 'thor'
+gem 'thor-rails'
 
 gem 'newrelic_rpm'
 
