@@ -13,10 +13,20 @@ module V1
       render json: user
     end
 
+    def update
+      authorize(user)
+      user.update(update_params)
+      render json: user
+    end
+
     protected
 
     def user
       @user ||= User.find(params[:id])
+    end
+
+    def update_params
+      params.require(:user).permit(:password, :password_confirmation)
     end
   end
 end

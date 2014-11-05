@@ -40,4 +40,32 @@ describe V1::UsersController do
       expect(subject.body).to be_json_eql(expected.to_json)
     end
   end
+
+  describe 'PUT :update' do
+    context 'if user is the same as the current user' do
+      subject { put :update, id: user.id, user: { password: 'Password1', password_confirmation: 'Password1' } }
+
+      it 'updates the User record' do
+        expect { subject }.to change { user.reload.updated_at }
+      end
+
+      it 'renders successfully' do
+        expect(subject.status).to eq(200)
+      end
+    end
+
+    context 'if user is not the current user' do
+      let(:another_user) { Fabricate(:user) }
+
+      subject { put :update, id: another_user.id, user: { password: 'Password1', password_confirmation: 'Password1' } }
+
+      it 'does not update the User record' do
+        expect { subject }.not_to change { user.reload.updated_at }
+      end
+
+      it 'returns a 403 Forbidden status' do
+        expect(subject.status).to eq(403)
+      end
+    end
+  end
 end
