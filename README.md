@@ -7,10 +7,18 @@ Support Hero
 
 `rake db:create && db:migrate && db:seed`
 
-Client Code: `https://github.com/evansagge/support-hero-client`
+Client Code
 
-Client: `http://support-hero.herokuapp.com`
+  `https://github.com/evansagge/support-hero-client`
 
-API: `http://support-hero-api.herokuapp.com`
+Client UI
 
-Documentation: `http://support-hero-api.herokuapp.com/docs`
+  `http://support-hero.herokuapp.com`
+
+API
+
+  `http://support-hero-api.herokuapp.com`
+
+API Documentation
+
+  `http://support-hero-api.herokuapp.com/docs`
