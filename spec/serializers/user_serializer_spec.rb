@@ -6,8 +6,8 @@ describe UserSerializer do
 
   let(:expected) do
     {
-      id:   user.id,
-      name: user.name,
+      id:    user.id,
+      name:  user.name,
       roles: user.roles
     }
   end
