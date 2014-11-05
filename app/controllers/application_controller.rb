@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
   include ActionController::Head
   include Doorkeeper::Helpers::Filter
   include Pundit
+  include HasScope
 
   rescue_from Pundit::NotAuthorizedError, with: :pundit_not_authorized
 

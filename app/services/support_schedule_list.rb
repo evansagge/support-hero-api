@@ -63,7 +63,7 @@ class SupportScheduleList
 
   def swapped_schedules
     @swapped_schedules ||= SwappedSchedule.accepted.includes(:original_user, :target_user)
-      .each_with_object({}) do |swapped_schedule, map|
+                           .each_with_object({}) do |swapped_schedule, map|
       map[swapped_schedule.original_date] = swapped_schedule
       map[swapped_schedule.target_date] = swapped_schedule
     end

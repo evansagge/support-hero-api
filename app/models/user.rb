@@ -22,6 +22,8 @@
 class User < ActiveRecord::Base
   ROLES = %w(manager support)
 
+  scope :roles, ->(roles) { where.any(roles: roles) }
+
   has_many :undoable_schedules
   has_many :swapped_schedules, foreign_key: :original_user_id
   has_many :target_swapped_schedules, foreign_key: :target_user_id

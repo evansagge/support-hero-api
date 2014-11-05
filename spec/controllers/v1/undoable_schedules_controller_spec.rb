@@ -63,6 +63,29 @@ describe V1::UndoableSchedulesController do
     end
   end
 
+  describe 'PUT :update ' do
+    let!(:undoable_schedule) { Fabricate(:undoable_schedule) }
+
+    subject { put :update, id: undoable_schedule.id, undoable_schedule: { approved: true } }
+
+    context 'if current user is a manager' do
+      before { user.update(roles: %w(manager)) }
+      it 'updates the UndoableSchedule record' do
+        expect { subject }.to change { undoable_schedule.reload.approved? }.from(false).to(true)
+      end
+    end
+
+    context 'if current user is not a manager' do
+      it 'does not update the UndoableSchedule record' do
+        expect { subject }.not_to change { undoable_schedule.reload.approved? }
+      end
+
+      it 'returns a 403 Forbidden status' do
+        expect(subject.status).to eq(403)
+      end
+    end
+  end
+
   describe 'DELETE :destroy' do
     subject { delete :destroy, id: undoable_schedule.id }
 

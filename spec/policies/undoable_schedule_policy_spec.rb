@@ -25,6 +25,24 @@ describe UndoableSchedulePolicy do
     end
   end
 
+  permissions :update? do
+    let(:user) { Fabricate(:user) }
+    let(:undoable_schedule) { Fabricate(:undoable_schedule, user: user) }
+
+    it 'grants access if user is a manager' do
+      manager = Fabricate(:user, roles: %w(manager))
+      expect(subject).to permit(manager, undoable_schedule)
+    end
+
+    it 'denies access if user owns the undoable schedule' do
+      expect(subject).to_not permit(user, undoable_schedule)
+    end
+
+    it 'denies access if user neither owns the undoable schedule nor is a manager' do
+      expect(subject).to_not permit(Fabricate(:user), undoable_schedule)
+    end
+  end
+
   permissions :destroy? do
     let(:user) { Fabricate(:user) }
     let(:undoable_schedule) { Fabricate(:undoable_schedule, user: user) }

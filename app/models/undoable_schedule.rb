@@ -24,6 +24,7 @@
 
 class UndoableSchedule < ActiveRecord::Base
   scope :approved, -> { where(approved: true) }
+  scope :pending, -> { where(approved: false) }
   scope :between_dates, ->(start_date, end_date) { where(date: start_date..end_date) }
 
   belongs_to :user
@@ -31,4 +32,12 @@ class UndoableSchedule < ActiveRecord::Base
   validates :date, presence: true, uniqueness: true
   validates :user, presence: true
   validates :reason, presence: true
+
+  after_commit :remove_from_support_holidays, on: :destroy
+
+  protected
+
+  def remove_from_support_holidays
+    SupportHolidays.delete(date)
+  end
 end

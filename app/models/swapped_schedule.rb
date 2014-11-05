@@ -19,7 +19,11 @@
 class SwappedSchedule < ActiveRecord::Base
   STATUSES = %w(pending accepted rejected invalidated)
 
+  scope :original_user, ->(user_id) { where(original_user_id: user_id) }
+  scope :target_user, ->(user_id) { where(target_user_id: user_id) }
   scope :accepted, -> { where(status: 'accepted') }
+  scope :pending, -> { where(status: 'pending') }
+  scope :rejected, -> { where(status: 'rejected') }
 
   belongs_to :original_user, class_name: 'User', inverse_of: :swapped_schedules
   belongs_to :target_user, class_name: 'User', inverse_of: :target_swapped_schedules

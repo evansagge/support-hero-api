@@ -1,12 +1,18 @@
 module V1
   class SwappedSchedulesController < ApplicationController
+    has_scope :original_user
+    has_scope :target_user
+    has_scope :pending, type: :boolean
+    has_scope :accepted, type: :boolean
+    has_scope :rejected, type: :boolean
+
     def index
-      swapped_schedules = SwappedSchedule.all
+      swapped_schedules = apply_scopes(SwappedSchedule.all)
       render json: swapped_schedules
     end
 
     def create
-      swapped_schedule = SwappedSchedule.new(create_params)
+      swapped_schedule = SwappedSchedule.where(create_params).first_or_initialize
       authorize(swapped_schedule)
       swapped_schedule.save
 

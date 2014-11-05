@@ -9,6 +9,10 @@ class UndoableSchedulePolicy < ApplicationPolicy
     support_schedule.user == user if support_schedule.present?
   end
 
+  def update?
+    manager?
+  end
+
   def destroy?
     manager? || owner?
   end

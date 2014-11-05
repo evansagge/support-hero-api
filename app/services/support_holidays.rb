@@ -10,6 +10,14 @@ class SupportHolidays
       support_holidays = new(start_date, end_date)
       support_holidays.detect
     end
+
+    def delete(date)
+      BusinessTime::Config.holidays.delete(date)
+    end
+
+    def add(date)
+      BusinessTime::Config.holidays.push(date)
+    end
   end
 
   def initialize(start_date, end_date)
@@ -23,7 +31,7 @@ class SupportHolidays
   end
 
   def apply_holiday(date)
-    BusinessTime::Config.holidays.push(date)
+    self.class.add(date)
   end
 
   def undoable_days

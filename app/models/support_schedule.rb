@@ -6,10 +6,29 @@ class SupportSchedule
 
   class << self
     def between(start_date, end_date, user = nil)
-      support_schedules = []
-
       support_orders = SupportOrder.includes(support_order_users: :user)
-        .where('start_at <= ?', end_date).order(start_at: :asc)
+                       .where('start_at <= ?', end_date).order(start_at: :asc)
+
+      schedules = support_schedules(support_orders, start_date, end_date)
+
+      return schedules if user.nil?
+
+      schedules.select { |schedule| schedule.user == user }
+    end
+
+    def find(date)
+      support_order = SupportOrder.for_date(date)
+
+      return nil if support_order.nil?
+
+      support_schedule_list = SupportScheduleList.new(support_order)
+      support_schedule_list.find(date)
+    end
+
+    protected
+
+    def support_schedules(support_orders, start_date, end_date)
+      support_schedules = []
 
       support_orders.each_with_index do |support_order, n|
         next_support_order = support_orders[n + 1]
@@ -20,18 +39,7 @@ class SupportSchedule
         support_schedules.concat(support_schedule_list.all(start_date, support_end_date))
       end
 
-      return support_schedules if user.nil?
-
-      support_schedules.select { |schedule| schedule.user == user }
-    end
-
-    def find(date)
-      support_order = SupportOrder.for_date(date)
-
-      return nil if support_order.nil?
-
-      support_schedule_list = SupportScheduleList.new(support_order)
-      support_schedule_list.find(date)
+      support_schedules
     end
   end
 end
