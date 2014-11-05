@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  apipie
+
   scope '/api' do
     use_doorkeeper do
       skip_controllers :applications, :authorized_applications

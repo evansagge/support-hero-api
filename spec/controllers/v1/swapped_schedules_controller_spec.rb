@@ -81,7 +81,7 @@ describe V1::SwappedSchedulesController do
     context 'if current user is the original user for the swapped schedule' do
       let!(:swapped_schedule) { Fabricate(:swapped_schedule, original_user: user) }
 
-      subject { put :update, id: swapped_schedule.id, swapped_schedule: { status: 'approved' } }
+      subject { put :update, id: swapped_schedule.id, swapped_schedule: { status: 'accepted' } }
 
       it 'returns a 403 Forbidden status' do
         expect(subject.status).to eq(403)
@@ -91,7 +91,7 @@ describe V1::SwappedSchedulesController do
     context 'if current user is any other user' do
       let!(:swapped_schedule) { Fabricate(:swapped_schedule) }
 
-      subject { put :update, id: swapped_schedule.id, swapped_schedule: { status: 'approved' } }
+      subject { put :update, id: swapped_schedule.id, swapped_schedule: { status: 'accepted' } }
 
       it 'returns a 403 Forbidden status' do
         expect(subject.status).to eq(403)
