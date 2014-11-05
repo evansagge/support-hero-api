@@ -9,16 +9,16 @@ Support Hero
 
 Client Code
 
-  `https://github.com/evansagge/support-hero-client`
+  https://github.com/evansagge/support-hero-client
 
 Client UI
 
-  `http://support-hero.herokuapp.com`
+  http://support-hero.herokuapp.com
 
 API
 
-  `http://support-hero-api.herokuapp.com`
+  http://support-hero-api.herokuapp.com
 
 API Documentation
 
-  `http://support-hero-api.herokuapp.com/docs`
+  http://support-hero-api.herokuapp.com/docs
