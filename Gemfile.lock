@@ -96,6 +96,9 @@ GEM
       lumberjack (~> 1.0)
       pry (>= 0.9.12)
       thor (>= 0.18.1)
+    guard-bundler (2.0.0)
+      bundler (~> 1.0)
+      guard (~> 2.2)
     guard-rspec (4.3.1)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
@@ -241,6 +244,9 @@ GEM
       colorize
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
+    swagger-docs (0.1.9)
+      activesupport (>= 3, < 5)
+      rails (>= 3, < 5)
     thin (1.6.3)
       daemons (~> 1.0, >= 1.0.9)
       eventmachine (~> 1.0)
@@ -276,6 +282,7 @@ DEPENDENCIES
   fabrication (~> 2.11)
   ffaker
   guard
+  guard-bundler
   guard-rspec
   guard-rubocop
   has_scope
@@ -300,6 +307,7 @@ DEPENDENCIES
   simplecov
   spring
   spring-commands-rspec
+  swagger-docs
   thin
   thor
   thor-rails

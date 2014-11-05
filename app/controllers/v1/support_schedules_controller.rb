@@ -1,5 +1,13 @@
 module V1
   class SupportSchedulesController < ApplicationController
+    swagger_controller :support_schedules, 'Support Schedules'
+
+    swagger_api :index do
+      summary 'Fetches all support schedules'
+      param :start_date, :datetime, :optional, 'Filter schedules from start date (default: start of current month)'
+      param :end_date, :datetime, :optional, 'Filter schedules up to end date (default: end of month of :start_date, \
+        or end of current month)'
+    end
     def index
       support_schedules = SupportSchedule.between(start_date, end_date, user)
       render json: support_schedules

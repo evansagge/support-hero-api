@@ -24,6 +24,8 @@ gem 'thor-rails'
 
 gem 'newrelic_rpm'
 
+gem 'swagger-docs'
+
 group :development do
   gem 'annotate'
   gem 'capistrano'
@@ -44,6 +46,7 @@ group :development, :test do
   gem 'guard'
   gem 'guard-rubocop'
   gem 'guard-rspec'
+  gem 'guard-bundler'
 end
 
 group :test do

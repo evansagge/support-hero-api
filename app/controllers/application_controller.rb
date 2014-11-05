@@ -5,6 +5,7 @@ class ApplicationController < ActionController::API
   include Doorkeeper::Helpers::Filter
   include Pundit
   include HasScope
+  include Swagger::Docs::Methods
 
   rescue_from Pundit::NotAuthorizedError, with: :pundit_not_authorized
 
