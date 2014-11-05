@@ -1,0 +1,113 @@
+{
+  "apiVersion": "1.0",
+  "swaggerVersion": "1.2",
+  "basePath": "http://support-hero-api.herokuapp.com/",
+  "resourcePath": "support_schedules",
+  "apis": [
+    {
+      "path": "api/v1/support_schedules.json",
+      "operations": [
+        {
+          "summary": "Fetches all support schedules",
+          "parameters": [
+            {
+              "paramType": "query",
+              "name": "user_id",
+              "type": "string",
+              "description": "Filter schedules by user",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "start_date",
+              "type": "date",
+              "description": "Filter schedules from start date (default: start of current month)",
+              "required": false
+            },
+            {
+              "paramType": "query",
+              "name": "end_date",
+              "type": "date",
+              "description": "Filter schedules up to end date (default: end of month of :start_date, or end of current month)",
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            }
+          ],
+          "method": "get",
+          "nickname": "V1::SupportSchedules#index"
+        }
+      ]
+    },
+    {
+      "path": "api/v1/support_schedules/{id}.json",
+      "operations": [
+        {
+          "summary": "Fetch a single support schedule",
+          "parameters": [
+            {
+              "paramType": "path",
+              "name": "id",
+              "type": "string",
+              "description": null,
+              "required": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 401,
+              "responseModel": null,
+              "message": "Unauthorized"
+            },
+            {
+              "code": 500,
+              "responseModel": "support_schedule",
+              "message": "Success"
+            }
+          ],
+          "method": "get",
+          "nickname": "V1::SupportSchedules#show"
+        }
+      ]
+    }
+  ],
+  "models": {
+    "support_schedule": {
+      "id": "support_schedule",
+      "required": [
+        "id",
+        "date",
+        "position",
+        "user_id",
+        "user_name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Date of support schedule"
+        },
+        "date": {
+          "type": "date",
+          "description": "Date of support schedule"
+        },
+        "position": {
+          "type": "integer",
+          "description": "Position in support order list"
+        },
+        "user_id": {
+          "type": "string",
+          "description": "ID of user assigned for this support date"
+        },
+        "user_name": {
+          "type": "string",
+          "description": "Name of user assigned for this support date"
+        }
+      }
+    }
+  }
+}

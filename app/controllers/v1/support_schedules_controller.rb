@@ -4,14 +4,33 @@ module V1
 
     swagger_api :index do
       summary 'Fetches all support schedules'
-      param :start_date, :datetime, :optional, 'Filter schedules from start date (default: start of current month)'
-      param :end_date, :datetime, :optional, 'Filter schedules up to end date (default: end of month of :start_date, \
-        or end of current month)'
+      param :query, :user_id, :string, :optional, 'Filter schedules by user'
+      param :query, :start_date, :date, :optional, 'Filter schedules from start date (default: start of current month)'
+      param :query, :end_date, :date, :optional, 'Filter schedules up to end date (default: end of month of :start_date, ' \
+        'or end of current month)'
+      response :unauthorized
     end
+
+    swagger_api :show do
+      summary 'Fetch a single support schedule'
+      param :path, :id, :string, 'Date of the support schedule'
+      response :success, 'Success', :support_schedule
+      response :unauthorized
+    end
+
+    swagger_model :support_schedule do
+      property :id, :string, :required, 'Date of support schedule'
+      property :date, :date, :required, 'Date of support schedule'
+      property :position, :integer, :required, 'Position in support order list'
+      property :user_id, :string, :required, 'ID of user assigned for this support date'
+      property :user_name, :string, :required, 'Name of user assigned for this support date'
+    end
+
     def index
       support_schedules = SupportSchedule.between(start_date, end_date, user)
       render json: support_schedules
     end
+
 
     def show
       support_schedule = SupportSchedule.find(date)
