@@ -24,6 +24,8 @@ gem 'thor-rails'
 
 gem 'newrelic_rpm'
 
+gem 'apipie-rails'
+
 group :development do
   gem 'annotate'
   gem 'capistrano'

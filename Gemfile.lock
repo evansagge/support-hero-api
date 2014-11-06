@@ -46,6 +46,8 @@ GEM
     annotate (2.6.5)
       activerecord (>= 2.3.0)
       rake (>= 0.8.7)
+    apipie-rails (0.2.6)
+      json
     arel (5.0.1.20140414130214)
     ast (2.0.0)
     bcrypt (3.1.7)
@@ -266,6 +268,7 @@ DEPENDENCIES
   active_model_serializers!
   acts_as_list
   annotate
+  apipie-rails
   bcrypt (~> 3.1.7)
   business_time
   capistrano

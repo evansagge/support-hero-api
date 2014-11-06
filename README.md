@@ -6,3 +6,19 @@ Support Hero
 `bundle install`
 
 `rake db:create && db:migrate && db:seed`
+
+Client Code
+
+  https://github.com/evansagge/support-hero-client
+
+Client UI
+
+  http://support-hero.herokuapp.com
+
+API
+
+  http://support-hero-api.herokuapp.com
+
+API Documentation
+
+  http://support-hero-api.herokuapp.com/docs
