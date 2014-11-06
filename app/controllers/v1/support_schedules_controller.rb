@@ -1,10 +1,10 @@
 module V1
   class SupportSchedulesController < ApplicationController
     api :GET, 'v1/support_schedules', 'Fetch all support schedules'
-    param :start_date, Date, desc: 'Filter support schedules starting from this date ' \
-      '(default: beginning of current month)', allow_nil: true
-    param :end_date, Date, desc: 'Filter support schedules up to this date ' \
-      '(default: end of the same month as :start_date, or end of current month)', allow_nil: true
+    param :start_date, Date, allow_nil: true, desc: 'Filter support schedules starting from this date ' \
+      '(default: beginning of current month)'
+    param :end_date, Date, allow_nil: true, desc: 'Filter support schedules up to this date ' \
+      '(default: end of the same month as :start_date, or end of current month)'
     param :user_id, String, desc: 'Filter support schedules by user ID'
     error code: 401, desc: 'Unauthorized'
     def index
