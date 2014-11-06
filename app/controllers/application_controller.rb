@@ -10,6 +10,17 @@ class ApplicationController < ActionController::API
 
   doorkeeper_for :all
 
+  api :POST, 'oauth/token', 'OAuth2 token authentication endpoint. ' \
+    'Post here with authorization code for authorization code grant type or ' \
+    'username and password for password grant type, or refresh token for refresh token type. ' \
+    'This corresponds to the token endpoint, section 3.2 of the OAuth 2 RFC.'
+  api :GET, 'oauth/token/info', 'Shows details about the token used for authentication'
+  api :POST, 'oauth/token/revoke', 'Revokes the given token, requires authentication'
+
+  api :GET, 'oauth/authorize/:code'
+  api :POST, 'oauth/authorize'
+  api :DELETE, 'oauth/authorize'
+
   protected
 
   def doorkeeper_unauthorized_render_options
