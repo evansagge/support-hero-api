@@ -8,21 +8,24 @@ Apipie.configure do |config|
 end
 
 class DateValidator < Apipie::Validator::BaseValidator
-  def initialize(param_description, argument)
+  attr_reader :type, :options
+
+  def initialize(param_description, argument, options)
     super(param_description)
     @type = argument
+    @options = options
   end
 
   def validate(value)
-    return false if value.nil?
+    return options[:allow_nil] == true if value.blank?
     Chronic.parse(value).present?
   end
 
-  def self.build(param_description, argument, _options, _block)
-    new(param_description, argument) if argument == Date
+  def self.build(param_description, argument, options, _block)
+    new(param_description, argument, options) if argument == Date
   end
 
   def description
-    "Must be a #{@date} in the format YYYY-MM-DD."
+    "Must be a #{type} in the format YYYY-MM-DD."
   end
 end
