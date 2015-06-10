@@ -25,16 +25,18 @@ Support Hero
 
 ## Usage
 
-  The app deployed https://support-hero-app.herokuapp.com/
+  The client app is deployed here: https://support-hero-app.herokuapp.com/
   
   You may login as any of the users:
   
-  Sherry, Boris, Vicente, Matte, Jack, Kevin, Zoe, Jay, Eadon, Franky, Luis, James
+    Sherry, Boris, Vicente, Matte, Jack, Kevin, Zoe, Jay, Eadon, Franky, Luis, James
   
   Additionally, you may login as username: Manager
   
   Password for all of these users are set to: Pass1234
   
+## Links
+
   The API documentation for the backend: https://support-hero-api.herokuapp.com/docs
   
   Github repo for backend code (using Rails): https://github.com/evansagge/support-hero-api
