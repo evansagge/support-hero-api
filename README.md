@@ -7,18 +7,36 @@ Support Hero
 
 `rake db:create && db:migrate && db:seed`
 
-Client Code
+## Client Code
 
   https://github.com/evansagge/support-hero-client
 
-Client UI
+## Client UI
 
   http://support-hero.herokuapp.com
 
-API
+## API
 
   http://support-hero-api.herokuapp.com
 
-API Documentation
+## API Documentation
 
   http://support-hero-api.herokuapp.com/docs
+
+## Usage
+
+  The app deployed https://support-hero-app.herokuapp.com/
+  
+  You may login as any of the users:
+  
+  Sherry, Boris, Vicente, Matte, Jack, Kevin, Zoe, Jay, Eadon, Franky, Luis, James
+  
+  Additionally, you may login as username: Manager
+  
+  Password for all of these users are set to: Pass1234
+  
+  The API documentation for the backend: https://support-hero-api.herokuapp.com/docs
+  
+  Github repo for backend code (using Rails): https://github.com/evansagge/support-hero-api
+  
+  Github repo for frontend code (using Ember-CLI): https://github.com/evansagge/support-hero-client
